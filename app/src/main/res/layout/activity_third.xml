@@ -13,12 +13,12 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/EditTest"
+        android:id="@+id/EditTestDelete"
         android:hint="@string/EditTest"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/submitButton"
+        android:id="@+id/submitButtonDelete"
         android:text="@string/submit"/>
 
 </LinearLayout>

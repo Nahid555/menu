@@ -20,7 +20,6 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
-    String[] names = {"Asfaque", "Ovi", "Imam", "Shuvo"};
     ArrayList<String> arrayList = new ArrayList<>();
     ArrayAdapter<String> adapter;
 
@@ -29,7 +28,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        arrayList.addAll(Arrays.asList(names));
+        arrayList.add("ovi");
+        arrayList.add("imam");
         ListView listView = (ListView) findViewById(R.id.listView);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayList);
         listView.setAdapter(adapter);
@@ -73,14 +73,34 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         switch (menuItem.getItemId()) {
             case R.id.add:
                 final Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
                 break;
             case R.id.delete:
                 final Intent intent2 = new Intent(MainActivity.this, ThirdActivity.class);
-                startActivity(intent2);
+                startActivityForResult(intent2,2);
                 break;
-
+            default:
+                break;
         }
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 1:
+                String edit = data.getStringExtra("Name");
+                arrayList.add(edit);
+                adapter.notifyDataSetChanged();
+                break;
+            case 2:
+                String delete = data.getStringExtra("Name");
+                int del_pos=arrayList.indexOf(delete);
+                arrayList.remove(del_pos);
+                adapter.notifyDataSetChanged();
+                break;
+            default:
+                break;
+        }
     }
 }
